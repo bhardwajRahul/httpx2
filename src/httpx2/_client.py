@@ -114,9 +114,9 @@ class UseClientDefault:
 USE_CLIENT_DEFAULT = UseClientDefault()
 
 
-logger = logging.getLogger("httpx")
+logger = logging.getLogger("httpx2")
 
-USER_AGENT = f"python-httpx/{__version__}"
+USER_AGENT = f"python-httpx2/{__version__}"
 ACCEPT_ENCODING = ", ".join(
     [key for key in SUPPORTED_DECODERS.keys() if key != "identity"]
 )
@@ -600,7 +600,7 @@ class Client(BaseClient):
     Usage:
 
     ```python
-    >>> client = httpx.Client()
+    >>> client = httpx2.Client()
     >>> response = client.get('https://example.org')
     ```
 
@@ -843,10 +843,10 @@ class Client(BaseClient):
         extensions: RequestExtensions | None = None,
     ) -> typing.Iterator[Response]:
         """
-        Alternative to `httpx.request()` that streams the response body
+        Alternative to `httpx2.request()` that streams the response body
         instead of loading it into memory at once.
 
-        **Parameters**: See `httpx.request`.
+        **Parameters**: See `httpx2.request`.
 
         See also: [Streaming Responses][0]
 
@@ -891,7 +891,7 @@ class Client(BaseClient):
 
         Typically you'll want to build one with `Client.build_request()`
         so that any client-level configuration is merged into the request,
-        but passing an explicit `httpx.Request()` is supported as well.
+        but passing an explicit `httpx2.Request()` is supported as well.
 
         See also: [Request instances][0]
 
@@ -1048,7 +1048,7 @@ class Client(BaseClient):
         """
         Send a `GET` request.
 
-        **Parameters**: See `httpx.request`.
+        **Parameters**: See `httpx2.request`.
         """
         return self.request(
             "GET",
@@ -1077,7 +1077,7 @@ class Client(BaseClient):
         """
         Send an `OPTIONS` request.
 
-        **Parameters**: See `httpx.request`.
+        **Parameters**: See `httpx2.request`.
         """
         return self.request(
             "OPTIONS",
@@ -1106,7 +1106,7 @@ class Client(BaseClient):
         """
         Send a `HEAD` request.
 
-        **Parameters**: See `httpx.request`.
+        **Parameters**: See `httpx2.request`.
         """
         return self.request(
             "HEAD",
@@ -1139,7 +1139,7 @@ class Client(BaseClient):
         """
         Send a `POST` request.
 
-        **Parameters**: See `httpx.request`.
+        **Parameters**: See `httpx2.request`.
         """
         return self.request(
             "POST",
@@ -1176,7 +1176,7 @@ class Client(BaseClient):
         """
         Send a `PUT` request.
 
-        **Parameters**: See `httpx.request`.
+        **Parameters**: See `httpx2.request`.
         """
         return self.request(
             "PUT",
@@ -1213,7 +1213,7 @@ class Client(BaseClient):
         """
         Send a `PATCH` request.
 
-        **Parameters**: See `httpx.request`.
+        **Parameters**: See `httpx2.request`.
         """
         return self.request(
             "PATCH",
@@ -1246,7 +1246,7 @@ class Client(BaseClient):
         """
         Send a `DELETE` request.
 
-        **Parameters**: See `httpx.request`.
+        **Parameters**: See `httpx2.request`.
         """
         return self.request(
             "DELETE",
@@ -1314,7 +1314,7 @@ class AsyncClient(BaseClient):
     Usage:
 
     ```python
-    >>> async with httpx.AsyncClient() as client:
+    >>> async with httpx2.AsyncClient() as client:
     >>>     response = await client.get('https://example.org')
     ```
 
@@ -1558,10 +1558,10 @@ class AsyncClient(BaseClient):
         extensions: RequestExtensions | None = None,
     ) -> typing.AsyncIterator[Response]:
         """
-        Alternative to `httpx.request()` that streams the response body
+        Alternative to `httpx2.request()` that streams the response body
         instead of loading it into memory at once.
 
-        **Parameters**: See `httpx.request`.
+        **Parameters**: See `httpx2.request`.
 
         See also: [Streaming Responses][0]
 
@@ -1606,7 +1606,7 @@ class AsyncClient(BaseClient):
 
         Typically you'll want to build one with `AsyncClient.build_request()`
         so that any client-level configuration is merged into the request,
-        but passing an explicit `httpx.Request()` is supported as well.
+        but passing an explicit `httpx2.Request()` is supported as well.
 
         See also: [Request instances][0]
 
@@ -1763,7 +1763,7 @@ class AsyncClient(BaseClient):
         """
         Send a `GET` request.
 
-        **Parameters**: See `httpx.request`.
+        **Parameters**: See `httpx2.request`.
         """
         return await self.request(
             "GET",
@@ -1792,7 +1792,7 @@ class AsyncClient(BaseClient):
         """
         Send an `OPTIONS` request.
 
-        **Parameters**: See `httpx.request`.
+        **Parameters**: See `httpx2.request`.
         """
         return await self.request(
             "OPTIONS",
@@ -1821,7 +1821,7 @@ class AsyncClient(BaseClient):
         """
         Send a `HEAD` request.
 
-        **Parameters**: See `httpx.request`.
+        **Parameters**: See `httpx2.request`.
         """
         return await self.request(
             "HEAD",
@@ -1854,7 +1854,7 @@ class AsyncClient(BaseClient):
         """
         Send a `POST` request.
 
-        **Parameters**: See `httpx.request`.
+        **Parameters**: See `httpx2.request`.
         """
         return await self.request(
             "POST",
@@ -1891,7 +1891,7 @@ class AsyncClient(BaseClient):
         """
         Send a `PUT` request.
 
-        **Parameters**: See `httpx.request`.
+        **Parameters**: See `httpx2.request`.
         """
         return await self.request(
             "PUT",
@@ -1928,7 +1928,7 @@ class AsyncClient(BaseClient):
         """
         Send a `PATCH` request.
 
-        **Parameters**: See `httpx.request`.
+        **Parameters**: See `httpx2.request`.
         """
         return await self.request(
             "PATCH",
@@ -1961,7 +1961,7 @@ class AsyncClient(BaseClient):
         """
         Send a `DELETE` request.
 
-        **Parameters**: See `httpx.request`.
+        **Parameters**: See `httpx2.request`.
         """
         return await self.request(
             "DELETE",

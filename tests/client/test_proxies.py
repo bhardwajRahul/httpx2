@@ -1,7 +1,7 @@
 import httpcore
 import pytest
 
-import httpx
+import httpx2
 
 
 def url_to_origin(url: str) -> httpcore.URL:
@@ -9,22 +9,22 @@ def url_to_origin(url: str) -> httpcore.URL:
     Given a URL string, return the origin in the raw tuple format that
     `httpcore` uses for it's representation.
     """
-    u = httpx.URL(url)
+    u = httpx2.URL(url)
     return httpcore.URL(scheme=u.raw_scheme, host=u.raw_host, port=u.port, target="/")
 
 
 def test_socks_proxy():
-    url = httpx.URL("http://www.example.com")
+    url = httpx2.URL("http://www.example.com")
 
     for proxy in ("socks5://localhost/", "socks5h://localhost/"):
-        client = httpx.Client(proxy=proxy)
+        client = httpx2.Client(proxy=proxy)
         transport = client._transport_for_url(url)
-        assert isinstance(transport, httpx.HTTPTransport)
+        assert isinstance(transport, httpx2.HTTPTransport)
         assert isinstance(transport._pool, httpcore.SOCKSProxy)
 
-        async_client = httpx.AsyncClient(proxy=proxy)
+        async_client = httpx2.AsyncClient(proxy=proxy)
         async_transport = async_client._transport_for_url(url)
-        assert isinstance(async_transport, httpx.AsyncHTTPTransport)
+        assert isinstance(async_transport, httpx2.AsyncHTTPTransport)
         assert isinstance(async_transport._pool, httpcore.AsyncSOCKSProxy)
 
 
@@ -86,15 +86,15 @@ PROXY_URL = "http://[::1]"
     ],
 )
 def test_transport_for_request(url, proxies, expected):
-    mounts = {key: httpx.HTTPTransport(proxy=value) for key, value in proxies.items()}
-    client = httpx.Client(mounts=mounts)
+    mounts = {key: httpx2.HTTPTransport(proxy=value) for key, value in proxies.items()}
+    client = httpx2.Client(mounts=mounts)
 
-    transport = client._transport_for_url(httpx.URL(url))
+    transport = client._transport_for_url(httpx2.URL(url))
 
     if expected is None:
         assert transport is client._transport
     else:
-        assert isinstance(transport, httpx.HTTPTransport)
+        assert isinstance(transport, httpx2.HTTPTransport)
         assert isinstance(transport._pool, httpcore.HTTPProxy)
         assert transport._pool._proxy_url == url_to_origin(expected)
 
@@ -103,8 +103,8 @@ def test_transport_for_request(url, proxies, expected):
 @pytest.mark.network
 async def test_async_proxy_close():
     try:
-        transport = httpx.AsyncHTTPTransport(proxy=PROXY_URL)
-        client = httpx.AsyncClient(mounts={"https://": transport})
+        transport = httpx2.AsyncHTTPTransport(proxy=PROXY_URL)
+        client = httpx2.AsyncClient(mounts={"https://": transport})
         await client.get("http://example.com")
     finally:
         await client.aclose()
@@ -113,8 +113,8 @@ async def test_async_proxy_close():
 @pytest.mark.network
 def test_sync_proxy_close():
     try:
-        transport = httpx.HTTPTransport(proxy=PROXY_URL)
-        client = httpx.Client(mounts={"https://": transport})
+        transport = httpx2.HTTPTransport(proxy=PROXY_URL)
+        client = httpx2.Client(mounts={"https://": transport})
         client.get("http://example.com")
     finally:
         client.close()
@@ -122,7 +122,7 @@ def test_sync_proxy_close():
 
 def test_unsupported_proxy_scheme():
     with pytest.raises(ValueError):
-        httpx.Client(proxy="ftp://127.0.0.1")
+        httpx2.Client(proxy="ftp://127.0.0.1")
 
 
 @pytest.mark.parametrize(
@@ -222,13 +222,13 @@ def test_unsupported_proxy_scheme():
         ),
     ],
 )
-@pytest.mark.parametrize("client_class", [httpx.Client, httpx.AsyncClient])
+@pytest.mark.parametrize("client_class", [httpx2.Client, httpx2.AsyncClient])
 def test_proxies_environ(monkeypatch, client_class, url, env, expected):
     for name, value in env.items():
         monkeypatch.setenv(name, value)
 
     client = client_class()
-    transport = client._transport_for_url(httpx.URL(url))
+    transport = client._transport_for_url(httpx2.URL(url))
 
     if expected is None:
         assert transport == client._transport
@@ -248,18 +248,18 @@ def test_proxies_environ(monkeypatch, client_class, url, env, expected):
     ],
 )
 def test_for_deprecated_proxy_params(proxies, is_valid):
-    mounts = {key: httpx.HTTPTransport(proxy=value) for key, value in proxies.items()}
+    mounts = {key: httpx2.HTTPTransport(proxy=value) for key, value in proxies.items()}
 
     if not is_valid:
         with pytest.raises(ValueError):
-            httpx.Client(mounts=mounts)
+            httpx2.Client(mounts=mounts)
     else:
-        httpx.Client(mounts=mounts)
+        httpx2.Client(mounts=mounts)
 
 
 def test_proxy_with_mounts():
-    proxy_transport = httpx.HTTPTransport(proxy="http://127.0.0.1")
-    client = httpx.Client(mounts={"http://": proxy_transport})
+    proxy_transport = httpx2.HTTPTransport(proxy="http://127.0.0.1")
+    client = httpx2.Client(mounts={"http://": proxy_transport})
 
-    transport = client._transport_for_url(httpx.URL("http://example.com"))
+    transport = client._transport_for_url(httpx2.URL("http://example.com"))
     assert transport == proxy_transport

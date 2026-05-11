@@ -31,7 +31,7 @@ def print_help() -> None:
     console.print("A next generation HTTP client.", justify="center")
     console.print()
     console.print(
-        "Usage: [bold]httpx[/bold] [cyan]<URL> [OPTIONS][/cyan] ", justify="left"
+        "Usage: [bold]httpx2[/bold] [cyan]<URL> [OPTIONS][/cyan] ", justify="left"
     )
     console.print()
 

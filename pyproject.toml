@@ -3,7 +3,7 @@ requires = ["hatchling", "hatch-fancy-pypi-readme"]
 build-backend = "hatchling.build"
 
 [project]
-name = "httpx"
+name = "httpx2"
 description = "The next generation HTTP client."
 license = "BSD-3-Clause"
 requires-python = ">=3.9"
@@ -62,27 +62,26 @@ zstd = [
 ]
 
 [project.scripts]
-httpx = "httpx:main"
+httpx2 = "httpx2:main"
 
 [project.urls]
-Changelog = "https://github.com/encode/httpx/blob/master/CHANGELOG.md"
-Documentation = "https://www.python-httpx.org"
-Homepage = "https://github.com/encode/httpx"
-Source = "https://github.com/encode/httpx"
+Changelog = "https://github.com/pydantic/httpx2/blob/master/CHANGELOG.md"
+Homepage = "https://github.com/pydantic/httpx2"
+Source = "https://github.com/pydantic/httpx2"
 
 [tool.hatch.version]
-path = "src/httpx/__version__.py"
+path = "src/httpx2/__version__.py"
 
 [tool.hatch.build.targets.sdist]
 include = [
-    "/src/httpx",
+    "/src/httpx2",
     "/CHANGELOG.md",
     "/README.md",
     "/tests",
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/httpx"]
+packages = ["src/httpx2"]
 
 [tool.hatch.metadata.hooks.fancy-pypi-readme]
 content-type = "text/markdown"
@@ -138,4 +137,4 @@ markers = [
 
 [tool.coverage.run]
 omit = ["venv/*"]
-include = ["src/httpx/*", "tests/*"]
+include = ["src/httpx2/*", "tests/*"]

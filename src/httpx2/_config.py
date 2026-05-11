@@ -121,7 +121,7 @@ class Timeout:
         else:
             if isinstance(timeout, UnsetType):
                 raise ValueError(
-                    "httpx.Timeout must either include a default, or set all "
+                    "httpx2.Timeout must either include a default, or set all "
                     "four parameters explicitly."
                 )
             self.connect = timeout if isinstance(connect, UnsetType) else connect

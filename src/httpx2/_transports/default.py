@@ -11,17 +11,17 @@ Example usages...
 
 # Disable HTTP/2 on a single specific domain.
 mounts = {
-    "all://": httpx.HTTPTransport(http2=True),
-    "all://*example.org": httpx.HTTPTransport()
+    "all://": httpx2.HTTPTransport(http2=True),
+    "all://*example.org": httpx2.HTTPTransport()
 }
 
 # Using advanced httpcore configuration, with connection retries.
-transport = httpx.HTTPTransport(retries=1)
-client = httpx.Client(transport=transport)
+transport = httpx2.HTTPTransport(retries=1)
+client = httpx2.Client(transport=transport)
 
 # Using advanced httpcore configuration, with unix domain sockets.
-transport = httpx.HTTPTransport(uds="socket.uds")
-client = httpx.Client(transport=transport)
+transport = httpx2.HTTPTransport(uds="socket.uds")
+client = httpx2.Client(transport=transport)
 """
 
 from __future__ import annotations
@@ -33,7 +33,7 @@ from types import TracebackType
 if typing.TYPE_CHECKING:
     import ssl  # pragma: no cover
 
-    import httpx  # pragma: no cover
+    import httpx2  # pragma: no cover
 
 from .._config import DEFAULT_LIMITS, Limits, Proxy, create_ssl_context
 from .._exceptions import (
@@ -68,10 +68,10 @@ SOCKET_OPTION = typing.Union[
 
 __all__ = ["AsyncHTTPTransport", "HTTPTransport"]
 
-HTTPCORE_EXC_MAP: dict[type[Exception], type[httpx.HTTPError]] = {}
+HTTPCORE_EXC_MAP: dict[type[Exception], type[httpx2.HTTPError]] = {}
 
 
-def _load_httpcore_exceptions() -> dict[type[Exception], type[httpx.HTTPError]]:
+def _load_httpcore_exceptions() -> dict[type[Exception], type[httpx2.HTTPError]]:
     import httpcore
 
     return {
@@ -107,7 +107,7 @@ def map_httpcore_exceptions() -> typing.Iterator[None]:
                 continue
             # We want to map to the most specific exception we can find.
             # Eg if `exc` is an `httpcore.ReadTimeout`, we want to map to
-            # `httpx.ReadTimeout`, not just `httpx.TimeoutException`.
+            # `httpx2.ReadTimeout`, not just `httpx2.TimeoutException`.
             if mapped_exc is None or issubclass(to_exc, mapped_exc):
                 mapped_exc = to_exc
 
