@@ -3,12 +3,8 @@
 <p align="center"><em>A next-generation HTTP client for Python.</em></p>
 
 <p align="center">
-<a href="https://github.com/pydantic/httpx2/actions">
-    <img src="https://github.com/pydantic/httpx2/workflows/Test%20Suite/badge.svg" alt="Test Suite">
-</a>
-<a href="https://pypi.org/project/httpx2/">
-    <img src="https://badge.fury.io/py/httpx2.svg" alt="Package version">
-</a>
+<a href="https://github.com/pydantic/httpx2/actions"><img src="https://github.com/pydantic/httpx2/workflows/Test%20Suite/badge.svg" alt="Test Suite"></a>
+<a href="https://pypi.org/project/httpx2/"><img src="https://badge.fury.io/py/httpx2.svg" alt="Package version"></a>
 </p>
 
 HTTPX2 is a fully featured HTTP client library for Python 3. It includes **an integrated command line client**, has support for both **HTTP/1.1 and HTTP/2**, and provides both **sync and async APIs**.
@@ -23,7 +19,7 @@ HTTPX2 is a fully featured HTTP client library for Python 3. It includes **an in
 Install HTTPX2 using pip:
 
 ```shell
-$ pip install httpx2
+pip install httpx2
 ```
 
 Now, let's get started:
@@ -44,7 +40,7 @@ Now, let's get started:
 Or, using the command-line client.
 
 ```shell
-$ pip install 'httpx2[cli]'  # The command line client is an optional dependency.
+pip install 'httpx2[cli]'  # The command line client is an optional dependency.
 ```
 
 Which now allows us to use HTTPX2 directly from the command-line...
@@ -95,13 +91,13 @@ Plus all the standard features of `requests`...
 Install with pip:
 
 ```shell
-$ pip install httpx2
+pip install httpx2
 ```
 
 Or, to include the optional HTTP/2 support, use:
 
 ```shell
-$ pip install httpx2[http2]
+pip install httpx2[http2]
 ```
 
 HTTPX2 requires Python 3.9+.
