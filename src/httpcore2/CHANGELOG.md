@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## Unreleased
+
+### Fixed
+
+* Wait for positive flow-control credit when a peer's `SETTINGS` frame drives a stream's send window negative, instead of letting h2 raise `LocalProtocolError`. ([#935](https://github.com/pydantic/httpx2/pull/935))
+
 ## 2.0.0
 
 Official first release of `httpcore2`. No changes since `2.0.0b1`.
