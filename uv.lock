@@ -1337,7 +1337,7 @@ trio = [
 
 [package.metadata]
 requires-dist = [
-    { name = "anyio", marker = "extra == 'asyncio'", specifier = ">=4.0,<5.0" },
+    { name = "anyio", marker = "extra == 'asyncio'", specifier = ">=4.5.0,<5.0" },
     { name = "certifi" },
     { name = "h11", specifier = ">=0.16" },
     { name = "h2", marker = "extra == 'http2'", specifier = ">=3,<5" },
