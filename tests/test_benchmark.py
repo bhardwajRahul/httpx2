@@ -119,7 +119,10 @@ def test_bench_sync_stream_write_large() -> None:
         thread.start()
 
         stream = SyncStream(writer_sock)
-        stream.write(payload)
+        # Pass a timeout so the socket runs in timeout mode; otherwise the kernel
+        # drains the entire payload in a single blocking send() call and the
+        # buffer-slicing loop never iterates.
+        stream.write(payload, timeout=30.0)
         stream.close()
         thread.join()
 
