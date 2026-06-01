@@ -42,14 +42,20 @@ def create_ssl_context(
         ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
         ctx.check_hostname = False
         ctx.verify_mode = ssl.CERT_NONE
-    elif isinstance(verify, str):  # pragma: no cover
+    elif isinstance(verify, str):
+        if cert:
+            raise TypeError(
+                "`verify=<str>` cannot be combined with `cert=...`. "
+                "Build an `ssl.SSLContext` and pass it as `verify=<ctx>`, "
+                "using `.load_cert_chain()` to configure the certificate chain."
+            )
         message = (
             "`verify=<str>` is deprecated. "
             "Use `verify=ssl.create_default_context(cafile=...)` "
             "or `verify=ssl.create_default_context(capath=...)` instead."
         )
         warnings.warn(message, DeprecationWarning)
-        if os.path.isdir(verify):
+        if os.path.isdir(verify):  # pragma: no cover
             return ssl.create_default_context(capath=verify)
         return ssl.create_default_context(cafile=verify)
     else:
