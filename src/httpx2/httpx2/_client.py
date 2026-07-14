@@ -488,7 +488,9 @@ class BaseClient:
 
         # Do what the browsers do, despite standards...
         # Turn 302s into GETs.
-        if response.status_code == codes.FOUND and method != "HEAD":
+        # QUERY is excluded, per RFC 10008 Section 2.5.
+        # https://datatracker.ietf.org/doc/html/rfc10008#section-2.5
+        if response.status_code == codes.FOUND and method not in ("HEAD", "QUERY"):
             method = "GET"
 
         # If a POST is responded to with a 301, turn it into a GET.
@@ -1323,6 +1325,43 @@ class Client(BaseClient):
             extensions=extensions,
         )
 
+    def query(
+        self,
+        url: URL | str,
+        *,
+        content: RequestContent | None = None,
+        data: RequestData | None = None,
+        files: RequestFiles | None = None,
+        json: typing.Any | None = None,
+        params: QueryParamTypes | None = None,
+        headers: HeaderTypes | None = None,
+        cookies: CookieTypes | None = None,
+        auth: AuthTypes | UseClientDefault = USE_CLIENT_DEFAULT,
+        follow_redirects: bool | UseClientDefault = USE_CLIENT_DEFAULT,
+        timeout: TimeoutTypes | UseClientDefault = USE_CLIENT_DEFAULT,
+        extensions: RequestExtensions | None = None,
+    ) -> Response:
+        """
+        Send a `QUERY` request.
+
+        **Parameters**: See `httpx2.request`.
+        """
+        return self.request(
+            "QUERY",
+            url,
+            content=content,
+            data=data,
+            files=files,
+            json=json,
+            params=params,
+            headers=headers,
+            cookies=cookies,
+            auth=auth,
+            follow_redirects=follow_redirects,
+            timeout=timeout,
+            extensions=extensions,
+        )
+
     def close(self) -> None:
         """
         Close transport and proxies.
@@ -2114,6 +2153,43 @@ class AsyncClient(BaseClient):
         return await self.request(
             "DELETE",
             url,
+            params=params,
+            headers=headers,
+            cookies=cookies,
+            auth=auth,
+            follow_redirects=follow_redirects,
+            timeout=timeout,
+            extensions=extensions,
+        )
+
+    async def query(
+        self,
+        url: URL | str,
+        *,
+        content: RequestContent | None = None,
+        data: RequestData | None = None,
+        files: RequestFiles | None = None,
+        json: typing.Any | None = None,
+        params: QueryParamTypes | None = None,
+        headers: HeaderTypes | None = None,
+        cookies: CookieTypes | None = None,
+        auth: AuthTypes | UseClientDefault = USE_CLIENT_DEFAULT,
+        follow_redirects: bool | UseClientDefault = USE_CLIENT_DEFAULT,
+        timeout: TimeoutTypes | UseClientDefault = USE_CLIENT_DEFAULT,
+        extensions: RequestExtensions | None = None,
+    ) -> Response:
+        """
+        Send a `QUERY` request.
+
+        **Parameters**: See `httpx2.request`.
+        """
+        return await self.request(
+            "QUERY",
+            url,
+            content=content,
+            data=data,
+            files=files,
+            json=json,
             params=params,
             headers=headers,
             cookies=cookies,
